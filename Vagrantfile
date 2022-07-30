@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
         end
 
         centralit.vm.hostname = "centralit.vagrant.dev"
-        centralit.vm.network :private_network, ip: "192.168.14.100"
+        centralit.vm.network :private_network, ip: "192.168.56.160"
 
         centralit.vm.provision :ansible do |ansible|
             ansible.playbook = "centralit.yml"
@@ -45,7 +45,7 @@ Vagrant.configure(2) do |config|
             end
 
             server.vm.hostname = "dbnode#{node}.vagrant.dev"
-            server.vm.network :private_network, ip: "192.168.14.10#{node}"
+            server.vm.network :private_network, ip: "192.168.56.10#{node}"
 
             server.vm.provision :ansible do |ansible|
                 ansible.playbook = "dbnode.yml"
@@ -70,7 +70,7 @@ Vagrant.configure(2) do |config|
         end
 
         client.vm.hostname = "client.vagrant.dev"
-        client.vm.network :private_network, ip: "192.168.14.109"
+        client.vm.network :private_network, ip: "192.168.56.109"
 
         client.vm.provision :ansible do |ansible|
             ansible.playbook = "client.yml"
