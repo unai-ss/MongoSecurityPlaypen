@@ -3,25 +3,20 @@
   hosts: all
   vars_files:
     - vars/external_vars.yml
+  become: yes 
   tasks:
     - name: Fix internal network
       include_tasks: tasks/fix_internal_network.yml
-      become: yes
-      become_method: sudo
 
     - name: Populate /etc/hosts file with hostname entries for all VMs
       include_tasks: tasks/set_hosts.yml
-      become: yes
-      become_method: sudo
 
     - name: Set the Ceritifcate/LDAP Distinguished Names
       include_tasks: tasks/set_distinguished_names.yml
 
     - name: Install the Python package manager (PIP)
-      get_url: url=https://bootstrap.pypa.io/get-pip.py dest=/home/vagrant/get-pip.py mode=a+x
+      get_url: url=https://bootstrap.pypa.io/pip/2.7/get-pip.py dest=/home/vagrant/get-pip.py mode=a+x
     - command: /home/vagrant/get-pip.py
-      become: yes
-      become_method: sudo
     - file: path=/home/vagrant/get-pip.py state=absent
 
     - name: Install the Python MongoDB Driver (PyMongo)
